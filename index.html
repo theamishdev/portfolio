@@ -5,14 +5,813 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amish Verma | Full Stack Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="index.css">
+    <style>
+        /* GitHub Pac-Man Theme */
+        :root {
+            --github-dark: #0d1117;
+            --github-darker: #010409;
+            --github-card: #161b22;
+            --github-border: #30363d;
+            --github-text: #f0f6fc;
+            --github-text-secondary: #8b949e;
+            --github-accent: #58a6ff;
+            --github-green: #238636;
+            --github-orange: #db6d28;
+            --github-red: #f85149;
+            --github-purple: #8957e5;
+            --pacman-yellow: #ffd33d;
+            --pacman-blue: #1f6feb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: var(--github-dark);
+            color: var(--github-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--github-darker);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--github-border);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--github-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--pacman-yellow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--github-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--pacman-yellow);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--pacman-yellow);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--github-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0 50px;
+            position: relative;
+            background: radial-gradient(ellipse at center, var(--github-darker) 0%, var(--github-dark) 70%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 211, 61, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(31, 111, 235, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text h1 span {
+            color: var(--pacman-yellow);
+            position: relative;
+        }
+
+        .typing-text {
+            color: var(--github-accent);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            min-height: 2rem;
+            font-weight: 600;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--github-text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--github-green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2ea043;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--github-text);
+            border: 1px solid var(--github-border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--pacman-yellow);
+            transform: translateY(-2px);
+        }
+
+        /* Profile Image Section */
+        .profile-image-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--pacman-yellow);
+            box-shadow: 
+                0 0 30px rgba(255, 211, 61, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%) contrast(110%);
+            transition: all 0.5s ease;
+        }
+
+        .profile-image:hover {
+            filter: grayscale(0%) contrast(120%);
+            transform: scale(1.05);
+        }
+
+        .profile-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 211, 61, 0.2) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--pacman-yellow);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--github-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Platforms Section */
+        .platforms-section {
+            background: var(--github-darker);
+            padding: 80px 0;
+        }
+
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .platform-card {
+            background: var(--github-card);
+            border-radius: 6px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid var(--github-border);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .platform-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--pacman-yellow);
+        }
+
+        .platform-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--pacman-yellow);
+            box-shadow: 0 10px 20px rgba(255, 211, 61, 0.1);
+        }
+
+        .platform-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.3s;
+        }
+
+        .platform-icon.linkedin {
+            background: linear-gradient(135deg, #0077b5, #00a0dc);
+            color: white;
+        }
+
+        .platform-icon.github {
+            background: linear-gradient(135deg, #333, #6e5494);
+            color: white;
+        }
+
+        .platform-icon.leetcode {
+            background: linear-gradient(135deg, #ffa116, #ffa116);
+            color: #000;
+        }
+
+        .platform-icon.hackerrank {
+            background: linear-gradient(135deg, #1ba94c, #1ba94c);
+            color: white;
+        }
+
+        .platform-card:hover .platform-icon {
+            transform: scale(1.1);
+        }
+
+        .platform-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--github-text);
+        }
+
+        .platform-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--pacman-yellow);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--github-text-secondary);
+        }
+
+        .platform-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--pacman-yellow);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border: 1px solid var(--pacman-yellow);
+            border-radius: 6px;
+        }
+
+        .platform-link:hover {
+            background: var(--pacman-yellow);
+            color: var(--github-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--github-card);
+            border-radius: 6px;
+            padding: 2rem;
+            border: 1px solid var(--github-border);
+            transition: all 0.3s;
+        }
+
+        .skill-category:hover {
+            border-color: var(--pacman-yellow);
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--pacman-yellow);
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+        }
+
+        .skill-percentage {
+            color: var(--pacman-yellow);
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--github-border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--pacman-yellow), var(--github-accent));
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--github-card);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--github-border);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--pacman-yellow);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--pacman-blue), var(--github-accent));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: var(--github-text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 211, 61, 0.1);
+            color: var(--pacman-yellow);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 211, 61, 0.2);
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--github-card);
+            border-radius: 6px;
+            border: 1px solid var(--github-border);
+            transition: all 0.3s;
+        }
+
+        .contact-method:hover {
+            border-color: var(--pacman-yellow);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--pacman-yellow), var(--github-accent));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .contact-form {
+            background: var(--github-card);
+            padding: 2rem;
+            border-radius: 6px;
+            border: 1px solid var(--github-border);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--github-dark);
+            border: 1px solid var(--github-border);
+            border-radius: 6px;
+            color: var(--github-text);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--pacman-yellow);
+            box-shadow: 0 0 0 3px rgba(255, 211, 61, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--github-darker);
+            padding: 3rem 0;
+            border-top: 1px solid var(--github-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--github-card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--github-text);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--github-border);
+        }
+
+        .social-link:hover {
+            background: var(--pacman-yellow);
+            color: var(--github-dark);
+            transform: translateY(-3px);
+            border-color: var(--pacman-yellow);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .profile-image-wrapper {
+                width: 280px;
+                height: 280px;
+            }
+
+            .profile-glow {
+                width: 310px;
+                height: 310px;
+            }
+
+            .platforms-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .platform-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .stagger-children > * {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+        .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+        .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Pac-Man Ghosts Animation */
+        .ghosts-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .ghost {
+            width: 30px;
+            height: 30px;
+            border-radius: 50% 50% 0 0;
+            position: relative;
+            animation: float-ghost 3s ease-in-out infinite;
+        }
+
+        .ghost::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: inherit;
+            clip-path: polygon(0 0, 20% 100%, 40% 0, 60% 100%, 80% 0, 100% 100%, 100% 0, 0 0);
+        }
+
+        .ghost-red { background: #ff5555; animation-delay: 0s; }
+        .ghost-pink { background: #ff79c6; animation-delay: 0.5s; }
+        .ghost-cyan { background: #8be9fd; animation-delay: 1s; }
+        .ghost-orange { background: #ffb86c; animation-delay: 1.5s; }
+
+        @keyframes float-ghost {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="container">
             <div class="nav-container">
-                <a href="#" class="logo">Amish<span>Verma</span></a>
+                <a href="#" class="logo">
+                    <i class="fas fa-ghost"></i>
+                    Amish<span>Verma</span>
+                </a>
                 <nav>
                     <ul class="nav-links">
                         <li><a href="#home">Home</a></li>
@@ -55,6 +854,12 @@
                     <div class="profile-image-wrapper">
                         <img src="amish.jpg" 
                              alt="Amish Verma - Full Stack Developer" class="profile-image">
+                    </div>
+                    <div class="ghosts-container">
+                        <div class="ghost ghost-red"></div>
+                        <div class="ghost ghost-pink"></div>
+                        <div class="ghost ghost-cyan"></div>
+                        <div class="ghost ghost-orange"></div>
                     </div>
                 </div>
             </div>
@@ -403,13 +1208,13 @@ Features include real-time chat, business collaboration tools, and personalized 
                             <label class="form-label">Full Name *</label>
                             <!-- ADDED id -->
                             <input type="text" class="form-input" id="fullName" placeholder="Enter your full name" required>
-                            <small class="text-error" id="errorFullName" style="color: var(--primary); display:none;"></small>
+                            <small class="text-error" id="errorFullName" style="color: var(--pacman-yellow); display:none;"></small>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Email Address *</label>
                             <!-- ADDED id -->
                             <input type="email" class="form-input" id="email" placeholder="your.email@company.com" required>
-                            <small class="text-error" id="errorEmail" style="color: var(--primary); display:none;"></small>
+                            <small class="text-error" id="errorEmail" style="color: var(--pacman-yellow); display:none;"></small>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Company</label>
@@ -426,13 +1231,13 @@ Features include real-time chat, business collaboration tools, and personalized 
                             <label class="form-label">Subject *</label>
                             <!-- ADDED id -->
                             <input type="text" class="form-input" id="subject" placeholder="Brief subject line" required>
-                            <small class="text-error" id="errorSubject" style="color: var(--primary); display:none;"></small>
+                            <small class="text-error" id="errorSubject" style="color: var(--pacman-yellow); display:none;"></small>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Message *</label>
                             <!-- ADDED id -->
                             <textarea class="form-textarea" id="message" placeholder="Your message..." required></textarea>
-                            <small class="text-error" id="errorMessage" style="color: var(--primary); display:none;"></small>
+                            <small class="text-error" id="errorMessage" style="color: var(--pacman-yellow); display:none;"></small>
                         </div>
                         
                         <!-- ADDED status message div -->
@@ -450,21 +1255,30 @@ Features include real-time chat, business collaboration tools, and personalized 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="logo">Amish<span>Verma</span></div>
-                <p>&copy; 2025 Amish Verma. All rights reserved.</p>
+            <div class="footer-content" style="justify-content: center; gap: 2rem;">
+                <div class="logo" style="justify-content: center;">
+                    <i class="fas fa-ghost"></i>
+                    Amish<span>Verma</span>
+                </div>
                 <div class="social-links">
-                    <a href="#" class="social-link">
+                    <a href="https://github.com/theamishdev" class="social-link">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="#" class="social-link">
+                    <a href="https://www.linkedin.com/in/amish12/" class="social-link">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-instagram"></i>
+                    <a href="https://www.threads.com/@amish5420" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Threads">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="threadsGrad" x1="0" x2="1">
+                                    <stop offset="0%" stop-color="#000" stop-opacity="0.9"/>
+                                    <stop offset="100%" stop-color="#000" stop-opacity="0.6"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- simplified Threads-style swirl, uses currentColor for easy theming -->
+                            <path d="M12 3c2.8 0 4.8 1.2 5.6 3.6.9 2.6-.2 5.2-2.6 6.2-2.3 1-4.9.2-6.1-1.9-.9-1.6-.6-3.6 0-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            <path d="M9.5 16.5c1.2 1.3 3.2 2 5 1.6 2.9-.6 4.8-3.5 4.1-6.4-.7-3-3.6-4.9-6.6-4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
+                        </svg>
                     </a>
                 </div>
             </div>
@@ -579,7 +1393,100 @@ Features include real-time chat, business collaboration tools, and personalized 
             skillObserver.observe(el);
         });
     </script>
-    <!-- NEW: Link to the contact form script -->
-    <script src="contact.js"></script>
+    <!-- Contact form script -->
+    <script>
+        // Contact form validation and submission
+        const TARGET_EMAIL = "amishv20@gmail.com";
+
+        function displayError(id, message) {
+            const errorElement = document.getElementById(`error${id}`);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = message ? 'block' : 'none';
+            }
+        }
+
+        function isValidEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
+        function validateForm() {
+            let isValid = true;
+            
+            ['FullName', 'Email', 'Subject', 'Message'].forEach(id => displayError(id, ''));
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (fullName === '') {
+                displayError('FullName', 'Full Name is required.');
+                isValid = false;
+            }
+            
+            if (email === '') {
+                displayError('Email', 'Email Address is required.');
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                displayError('Email', 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            if (subject === '') {
+                displayError('Subject', 'Subject is required.');
+                isValid = false;
+            }
+
+            if (message === '') {
+                displayError('Message', 'Message content is required.');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            const statusDiv = document.getElementById('formStatus');
+            statusDiv.textContent = '';
+
+            if (!validateForm()) {
+                statusDiv.textContent = 'Please correct the errors above.';
+                statusDiv.style.color = 'var(--pacman-yellow)';
+                return false;
+            }
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const company = document.getElementById('company').value.trim();
+            const position = document.getElementById('position').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            let body = `From: ${fullName} (${email})\n`;
+            if (company) body += `Company: ${company}\n`;
+            if (position) body += `Position: ${position}\n`;
+            body += `\n---\n\n${message}`;
+
+            const mailtoSubject = encodeURIComponent(`Portfolio Inquiry: ${subject}`);
+            const mailtoBody = encodeURIComponent(body);
+
+            const mailtoLink = `mailto:${TARGET_EMAIL}?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+            statusDiv.textContent = 'Opening your email client... Please click send in the new window.';
+            statusDiv.style.color = 'var(--github-green)';
+
+            window.location.href = mailtoLink;
+
+            document.getElementById('contactForm').reset();
+            
+            return true;
+        }
+
+        window.submitForm = submitForm;
+    </script>
 </body>
 </html>
