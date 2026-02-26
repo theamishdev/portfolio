@@ -15,7 +15,8 @@ Render is very easy to use and has a generous free tier.
 3.  **Configure the Service**:      
     *   **Runtime**: Python
     *   **Build Command**: `pip install -r requirements.txt`
-    *   **Start Command**: `gunicorn app:app` (You may need to add `gunicorn` to your `requirements.txt`). Alternatively, use `python app.py` if Render's environment allows it, but `gunicorn` is standard for production.
+    *   **Start Command**: `gunicorn app:app`
+    *   **Important**: I have added `gunicorn` to your `requirements.txt`. This is the production server that Render uses to run your Flask app.
 4.  **Deploy**: Render will automatically build and deploy your project when you push to GitHub.
 
 ## Option 2: Railway
