@@ -6,7 +6,7 @@ import './MagicBento.css';
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
-const DEFAULT_GLOW_COLOR = '132, 0, 255';
+const DEFAULT_GLOW_COLOR = '94, 234, 212';
 const MOBILE_BREAKPOINT = 768;
 
 const createParticleElement = (x, y, color = DEFAULT_GLOW_COLOR) => {
@@ -452,14 +452,6 @@ const MagicBento = ({
     const isMobile = useMobileDetection();
     const shouldDisableAnimations = disableAnimations || isMobile;
 
-    // MERN Stack Logos
-    const mernLogos = [
-        { src: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg', alt: 'MongoDB' },
-        { src: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg', alt: 'Express', style: { filter: 'invert(1) brightness(2)' } },
-        { src: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg', alt: 'React' },
-        { src: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg', alt: 'Node.js' },
-    ];
-
     // Adapt projectData to cardData format
     const cardData = [
         {
@@ -473,7 +465,7 @@ const MagicBento = ({
             title: 'STACK/TECHNOLOGIES',
             description: (
                 <div className="flex items-center justify-center w-full h-full min-h-[100px]">
-                    <LogoLoop logos={mernLogos} speed={40} gap={30} logoHeight={50} fadeOut={true} />
+                    <LogoLoop logos={projectData.logos || []} speed={40} gap={30} logoHeight={50} fadeOut={true} />
                 </div>
             ),
             label: 'STACK/TECHNOLOGIES'
@@ -487,9 +479,9 @@ const MagicBento = ({
         },
         {
             color: '#060010',
-            title: 'Key Features',
-            description: projectData.features?.join('. ') || 'Interactive UI, Responsive Design, Modern Aesthetics.',
-            label: 'Features'
+            title: 'Key Features / Tags',
+            description: projectData.features?.join('. ') || projectData.tags?.join(', ') || 'Interactive UI, Responsive Design, Modern Aesthetics.',
+            label: 'Tech Stack'
         }
     ];
 

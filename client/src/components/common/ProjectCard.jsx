@@ -16,8 +16,16 @@ const ProjectCard = ({ title, description, tags, link, github, onClick }) => {
             <div className="flex justify-between items-start mb-6" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
                 <h3 className="text-2xl font-bold">{title}</h3>
                 <div className="flex gap-4" style={{ display: 'flex', gap: '1rem' }}>
-                    <a href={github || "#"} target="_blank" rel="noreferrer"><Github className="cursor-pointer hover:text-[var(--accent-primary)] transition-colors" size={20} /></a>
-                    <a href={link || "#"} target="_blank" rel="noreferrer"><ExternalLink className="cursor-pointer hover:text-[var(--accent-primary)] transition-colors" size={20} /></a>
+                    {github && (
+                        <a href={github} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
+                            <Github className="cursor-pointer hover:text-[var(--accent-primary)] transition-colors" size={20} />
+                        </a>
+                    )}
+                    {link && (
+                        <a href={link} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
+                            <ExternalLink className="cursor-pointer hover:text-[var(--accent-primary)] transition-colors" size={20} />
+                        </a>
+                    )}
                 </div>
             </div>
 
@@ -29,7 +37,7 @@ const ProjectCard = ({ title, description, tags, link, github, onClick }) => {
                 {tags.map(tag => (
                     <span
                         key={tag}
-                        className="px-3 py-1 bg-[rgba(99,102,241,0.1)] text-[var(--accent-primary)] text-xs font-semibold rounded-full"
+                        className="px-3 py-1 bg-[rgba(94,234,212,0.1)] text-[var(--accent-primary)] text-xs font-semibold rounded-full"
                         style={{ padding: '0.25rem 0.75rem', borderRadius: '9999px', fontSize: '0.75rem' }}
                     >
                         {tag}

@@ -32,10 +32,11 @@ const Hero = () => {
                     style={{ opacity }}
                 >
                     <motion.p
-                        className="text-[var(--accent-primary)] font-semibold mb-4 uppercase tracking-widest"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        className="text-[var(--accent-primary)] font-bold mb-6 uppercase tracking-[0.2em] text-lg md:text-xl"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
+                        style={{ letterSpacing: '0.2em' }}
                     >
                         {HERO_CONTENT.badge}
                     </motion.p>
